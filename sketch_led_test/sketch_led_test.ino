@@ -1,27 +1,3 @@
-//This section is for user inputted data to make the code personalized to the particular controller
-
-//shield drop
-#define sw_notch_x_value -.68750
-#define sw_notch_y_value -.71250
-#define se_notch_x_value  .70000
-#define se_notch_y_value -.70000
-//record southwest and southeast notch values
-
-//to switch to dolphin mode hold dpad right for 5 seconds
-//to return to a stock controller hold dpad left for 10 seconds
-
-/*
-  Install Intructions:
-  1. connect arduino to computer and make sure proper board [Arduino Nano], processor [ATmega328], and COM port [highest number] are selected under Tools
-  2. hit the upload button (the arrow) and wait for it to say "Done Uploading" at the bottom before disconnecting the arduino
-  3. connect 5V and Gnd from GCC header to 5V and Gnd pins on arduino (do not sever either wire)
-  4. sever data wire between GCC cable and header on controller
-  5. connect D2 on arduino to data header on controller, and D3 to data wire from cable
-  6. ensure no wires are caught anywhere and close everything up
-  Note: if there is any trouble with steps 1 or 2, get the CH340 driver for your operating system from google
-*/
-
-
 /*
    profiles
    1. default-dashback, maxvectors
@@ -35,7 +11,7 @@
 
 #include "Nintendo.h"
 CGamecubeController controller(3); //D3 for internal
-CGamecubeConsole console(2);       //D3 for external
+CGamecubeConsole console(2);
 Gamecube_Report_t gcc;             //structure for controller state
 bool shield, tilt, dolphin = 0, off = 0, wobbleState, set, last_state;
 byte axm, aym, cxm, cym, cycles;
@@ -119,12 +95,9 @@ void convertinputs() {
     backdash();      //fixes dashback by imposing a 1 frame buffer upon tilt turn values
     dolphinfix();    //ensures close to 0 values are reported as 0 on the sticks to fix dolphin calibration and allows user to switch to dolphin mode for backdash
     nocode();        //function to disable all code if dpad left is held for 10 seconds
-    jumpGrab();
     smashDI();      //smash di macro
-    icDysyncJump();
-    wobble();
-    shine_macro();
-    fc_nair_macro();
+    icDysyncJump(); //causes popo to only jump
+    wobble();       //hits A at 200bpm(ish) while moving the stick in the tapped direction
   */
 } //more mods to come!
 
@@ -436,22 +409,6 @@ void lCancel() {
   }
 }
 
-void dashDance() {
-  if (gcc.y) {
-    gcc.y = 0;
-    current_t = millis();
-
-    if (millis() - last_l >=20) {
-
-      last_l = current_t;
-
-      if (!last_state)
-        gcc.xAxis = 50;
-      else
-        gcc.xAxis = 205;
-    }
-  }
-}
 
 
 float ang(float xval, float yval) {
