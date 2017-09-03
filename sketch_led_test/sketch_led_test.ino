@@ -28,7 +28,7 @@ int eRed_led = 10, eGreen_led = 11, eBlu_led = 12;  //east(right) led
 int nRed_led = 15, nGreen_led = 16, nBlu_led = 17;     //north(up) led
 
 int data = 10, latch = 11, clockP = 12;
-boolean reg[16];
+boolean reg[40];
 
 
 bool wRed, wGreen, wBlu, sRed, sGreen, sBlu, eRed, eGreen, eBlu, nRed, nGreen, nBlu;
@@ -284,7 +284,6 @@ void wobble() {
       gcc.b = 0;
       gcc.x = 0;
       gcc.z = 0;
-      setGreen();
     } else {
       last_t = millis();
     }
@@ -420,8 +419,7 @@ float mag(char  xval, char  yval) {
 
 void setup() {
   gcc.origin = 0; gcc.errlatch = 0; gcc.high1 = 0; gcc.errstat = 0; profile = 1; //init values
-  swang = ang(abs(sw_notch_x_value), abs(sw_notch_y_value)); //calculates angle of SW gate based on user inputted data
-  seang = ang(abs(se_notch_x_value), abs(se_notch_y_value)); //calculates angle of SE gate based on user inputted data
+  
   //Serial.begin(9600);
 
   pinMode(nRed_led, OUTPUT); pinMode(nGreen_led, OUTPUT); pinMode(nBlu_led, OUTPUT);
