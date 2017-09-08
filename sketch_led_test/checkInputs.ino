@@ -15,7 +15,10 @@ void led() {
   setLedFlags(10, "black");
   setLedFlags(11, "black");
   setLedFlags(12, "black");
-
+  reg[37] = LOW;
+  reg[38] = LOW;
+  reg[39] = LOW;
+  reg[40] = LOW;
 
 
   //buttons

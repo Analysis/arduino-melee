@@ -11,7 +11,7 @@
 
 #include "Nintendo.h"
 CGamecubeController controller(3); //D3 for internal
-CGamecubeConsole console(2);
+CGamecubeConsole console(4);
 Gamecube_Report_t gcc;             //structure for controller state
 bool shield, tilt, dolphin = 0, off = 0, wobbleState, set, last_state;
 byte axm, aym, cxm, cym, cycles;
@@ -27,7 +27,7 @@ int sRed_led = 7, sGreen_led = 8, sBlu_led = 9;     //south(down) led
 int eRed_led = 10, eGreen_led = 11, eBlu_led = 12;  //east(right) led
 int nRed_led = 15, nGreen_led = 16, nBlu_led = 17;     //north(up) led
 
-int data = 10, latch = 11, clockP = 12;
+int data = 5, latch = 6, clockP = 7;
 boolean reg[40];
 
 
@@ -420,7 +420,7 @@ float mag(char  xval, char  yval) {
 void setup() {
   gcc.origin = 0; gcc.errlatch = 0; gcc.high1 = 0; gcc.errstat = 0; profile = 1; //init values
   
-  //Serial.begin(9600);
+ // Serial.begin(9600);
 
   pinMode(nRed_led, OUTPUT); pinMode(nGreen_led, OUTPUT); pinMode(nBlu_led, OUTPUT);
   pinMode(eRed_led, OUTPUT); pinMode(eGreen_led, OUTPUT); pinMode(eBlu_led, OUTPUT);
